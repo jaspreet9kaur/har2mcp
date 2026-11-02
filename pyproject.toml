@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "har2mcp"
+version = "0.1.0a1"
+description = "Evidence-based HAR sanitizer, OpenAPI 3.1 compiler, typed SDK generator, and official-SDK stdio MCP server with deterministic offline cassette replay."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "har2mcp contributors" }
+]
+keywords = ["mcp", "model-context-protocol", "har", "openapi", "reverse-engineering", "cassette", "api-compiler"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Security",
+]
+dependencies = [
+    "mcp==1.30.0",
+    "pydantic==2.14.2",
+    "jsonschema==4.26.0",
+    "click==8.5.0",
+]
+
+[project.scripts]
+har2mcp = "har2mcp.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.urls]
+Homepage = "https://github.com/jaspreet9kaur/har2mcp"
+Repository = "https://github.com/jaspreet9kaur/har2mcp"
+Issues = "https://github.com/jaspreet9kaur/har2mcp/issues"

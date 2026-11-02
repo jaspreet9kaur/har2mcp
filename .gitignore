@@ -1,0 +1,35 @@
+# Virtual environments and Python caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Node / TypeScript caches
+node_modules/
+.npm/
+
+# Never commit raw network captures, credentials, or local environment secrets
+*.har
+!tests/fixtures/*.synthetic.har
+!examples/*.synthetic.har
+.env
+.env.*
+!.env.example
+*secret*
+*token*
+*credential*
+application_default_credentials.json
+client_secret*.json
+
+# Temporary and compiled output directories
+tmp/
+temp/
+output/
+compiled_out/

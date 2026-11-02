@@ -1,0 +1,27 @@
+name: Isolated checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Provision dependencies without executing project source
+        run: docker build -f .ci/Dockerfile -t har2mcp-checks .
+      - name: Test and build with OS-enforced network and resource isolation
+        shell: bash
+        run: |
+          timeout --signal=KILL 180s docker run --rm --network none --read-only \
+            --user 65534:65534 --cap-drop ALL --security-opt no-new-privileges \
+            --ipc none --pids-limit 64 --memory 512m --memory-swap 512m --cpus 1 \
+            --ulimit cpu=120:120 --ulimit fsize=16777216:16777216 --ulimit nofile=256:256 \
+            --mount type=bind,src="$PWD",dst=/repo,readonly \
+            --mount type=tmpfs,destination=/scratch,tmpfs-size=67108864,tmpfs-mode=1777 \
+            har2mcp-checks env -i PATH=/usr/local/bin:/usr/bin:/bin \
+            HOME=/scratch TMPDIR=/scratch PYTHONPATH=/repo/src PYTHONDONTWRITEBYTECODE=1 \
+            HAR2MCP_TSC=/opt/typescript/bin/tsc \
+            python -B /repo/tests/ci_entrypoint.py
