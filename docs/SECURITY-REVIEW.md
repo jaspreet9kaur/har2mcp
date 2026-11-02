@@ -1,6 +1,6 @@
 # Baseline release review
 
-Scope: source review of the user's local implementation and publication changes, 2026-11-03. This is not a comprehensive audit or penetration test. Test execution evidence is recorded separately in VALIDATION.md.
+Scope: source review of the user's local implementation and publication changes, 2026-11-03. This is not a comprehensive audit or penetration test. Test execution evidence is recorded separately in VALIDATION.md: 22 cases passed in the isolated hosted CI run, including generated TypeScript checks and the Python package build.
 
 | Category | Applicability and evidence |
 | --- | --- |
